@@ -27,9 +27,9 @@ public class Player : MonoBehaviour
         // Update the dino's vertical position
         dinoTransform.position += new Vector3(0f, verticalVelocity * Time.deltaTime, 0f);
 
-        if (dinoTransform.position.y <= 0.76)
+        if (dinoTransform.position.y <= -1.66f)
         {
-            dinoTransform.position = new Vector3(dinoTransform.position.x, 0.76f, dinoTransform.position.z);
+            dinoTransform.position = new Vector3(dinoTransform.position.x, -1.66f, dinoTransform.position.z);
             verticalVelocity = 0f;
         }
     }
