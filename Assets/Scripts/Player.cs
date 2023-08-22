@@ -9,15 +9,28 @@ public class Player : MonoBehaviour
     private float jumpForce = 5f;
     private float gravity = -9.81f;
     private float verticalVelocity = 0f;
-
+    private float groundValue;
+    
     [SerializeField] private Vector3 vector3;
     [SerializeField] private float moveDino;
     [SerializeField] private AnimatedScript animatedScriptRun;
     [SerializeField] private AnimatedScript animatedScriptJump;
     
+    private bool IsGrounded
+    {
+        get
+        {
+            return groundValue == dinoTransform.position.y;
+        }
+    }
+    private void Start()
+    {
+        groundValue = dinoTransform.position.y;
+    }
+
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (IsGrounded && Input.GetKeyDown(KeyCode.Space))
         {
             animatedScriptJump.render = true;
             animatedScriptRun.render = false;
@@ -30,11 +43,11 @@ public class Player : MonoBehaviour
         // Update the dino's vertical position
         dinoTransform.position += new Vector3(0f, verticalVelocity * 3 * Time.deltaTime, 0f);
 
-        if (dinoTransform.position.y <= -1.66f)
+        if (dinoTransform.position.y <= groundValue)
         {
             animatedScriptJump.render = false;
             animatedScriptRun.render = true;
-            dinoTransform.position = new Vector3(dinoTransform.position.x, -1.66f, dinoTransform.position.z);
+            dinoTransform.position = new Vector3(dinoTransform.position.x, groundValue, dinoTransform.position.z);
             verticalVelocity = 0f;
         }
     }
