@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public float gameSpeed { get; private set; }
     public float initialGameSpeed = 5f;
     public float gameSoeedIncrease = 0.1f;
+    public bool IsGameOver { get; private set; }
 
     private void Awake()
     {
@@ -37,6 +38,7 @@ public class GameManager : MonoBehaviour
 
     private void NewGame()
     {
+        IsGameOver = false;
         gameSpeed = initialGameSpeed;
     }
 
