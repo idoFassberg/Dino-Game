@@ -51,4 +51,12 @@ public class Player : MonoBehaviour
             verticalVelocity = 0f;
         }
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Obstacle"))
+        {
+            GameManager.Instance.GameOver();
+        }
+    }
 }

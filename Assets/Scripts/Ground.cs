@@ -11,7 +11,7 @@ public class Ground : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float speed = 0.1f; //todo: get the actual speed from GameManager
+        float speed = GameManager.Instance.gameSpeed / transform.localScale.x;
         meshRenderer.material.mainTextureOffset += Vector2.right * speed * Time.deltaTime;
     }
 }

@@ -10,6 +10,9 @@ public class GameManager : MonoBehaviour
     public float gameSoeedIncrease = 0.1f;
     public bool IsGameOver { get; private set; }
 
+    [SerializeField] private Player player;
+    [SerializeField] private Spawner spawner;
+
     private void Awake()
     {
         if(Instance == null)
@@ -39,7 +42,17 @@ public class GameManager : MonoBehaviour
     private void NewGame()
     {
         IsGameOver = false;
+        Obstacle[] obstacles = FindObjectsOfType<Obstacle>();
+        foreach (var obstacle in obstacles)
+        {
+            Destroy(obstacle.gameObject);
+        }
+        
         gameSpeed = initialGameSpeed;
+        enabled = true;
+        
+        player.gameObject.SetActive(true);
+        spawner.gameObject.SetActive(true);
     }
 
     // Update is called once per frame
@@ -47,5 +60,14 @@ public class GameManager : MonoBehaviour
     {
         //Debug.Log($"game speed: {gameSpeed}");
         gameSpeed += gameSoeedIncrease * Time.deltaTime;
+    }
+
+    public void GameOver()
+    {
+        gameSpeed = 0f;
+        enabled = false;
+        
+        player.gameObject.SetActive(false);
+        spawner.gameObject.SetActive(false);
     }
 }
