@@ -6,7 +6,6 @@ using UnityEngine;
 public class Obstacle : MonoBehaviour
 {
     private float leftEdge;
-    private const float gameSpeed = 2.0f; //TODO: get the actual speed from GameManager
 
     private void Start()
     {
@@ -15,7 +14,7 @@ public class Obstacle : MonoBehaviour
 
     private void Update()
     {
-        transform.position += Vector3.left * gameSpeed * Time.deltaTime;
+        transform.position += Vector3.left * GameManager.Instance.gameSpeed * Time.deltaTime;
 
         if (transform.position.x < leftEdge)
         {
