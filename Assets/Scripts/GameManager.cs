@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+//using UnityEngine.UIElements;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,6 +13,12 @@ public class GameManager : MonoBehaviour
     public float gameSoeedIncrease = 0.1f;
     public bool IsGameOver { get; private set; }
 
+    [SerializeField] private TextMeshProUGUI gameOverText;
+    [SerializeField] private Button retryButton;
+    
+    private int score = 1;
+    [SerializeField] private TextMeshProUGUI scoreText;
+    
     [SerializeField] private Player player;
     [SerializeField] private Spawner spawner;
 
@@ -39,7 +48,7 @@ public class GameManager : MonoBehaviour
         NewGame();
     }
 
-    private void NewGame()
+    public void NewGame()
     {
         IsGameOver = false;
         Obstacle[] obstacles = FindObjectsOfType<Obstacle>();
@@ -50,9 +59,12 @@ public class GameManager : MonoBehaviour
         
         gameSpeed = initialGameSpeed;
         enabled = true;
+        score = 1;
         
         player.gameObject.SetActive(true);
         spawner.gameObject.SetActive(true);
+        gameOverText.gameObject.SetActive(false);
+        retryButton.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -60,14 +72,24 @@ public class GameManager : MonoBehaviour
     {
         //Debug.Log($"game speed: {gameSpeed}");
         gameSpeed += gameSoeedIncrease * Time.deltaTime;
+        
+        if(!IsGameOver)
+        {
+            score++;
+        }
+        
+        scoreText.text = (score).ToString();
     }
 
     public void GameOver()
     {
         gameSpeed = 0f;
         enabled = false;
-        
+
+        IsGameOver = true;
         player.gameObject.SetActive(false);
         spawner.gameObject.SetActive(false);
+        gameOverText.gameObject.SetActive(true);
+        retryButton.gameObject.SetActive(true);
     }
 }
