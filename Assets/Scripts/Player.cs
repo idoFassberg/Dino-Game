@@ -15,7 +15,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float moveDino;
     [SerializeField] private AnimatedScript animatedScriptRun;
     [SerializeField] private AnimatedScript animatedScriptJump;
-    
+
     private bool IsGrounded
     {
         get
@@ -30,7 +30,7 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        if (IsGrounded && Input.GetKeyDown(KeyCode.Space))
+        if (!GameManager.Instance.IsGameOver && IsGrounded && Input.GetKeyDown(KeyCode.Space))
         {
             animatedScriptJump.render = true;
             animatedScriptRun.render = false;
@@ -51,7 +51,6 @@ public class Player : MonoBehaviour
             verticalVelocity = 0f;
         }
     }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Obstacle"))

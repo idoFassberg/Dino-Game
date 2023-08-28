@@ -10,7 +10,7 @@ public class MainMenuController : MonoBehaviour
     [SerializeField] private Button _confirmQuitButton;
     [SerializeField] private Button _closeQuitButton;
     [SerializeField] private GameObject _quitPanel;
-
+    
     private void Awake()
     {
         _playButton.onClick.AddListener(StartGame);   
@@ -18,6 +18,7 @@ public class MainMenuController : MonoBehaviour
         _confirmQuitButton.onClick.AddListener(QuitGame);
         _closeQuitButton.onClick.AddListener(CloseQuitGame);
         _quitPanel.SetActive(false);
+        
     }
 
     private void StartGame()

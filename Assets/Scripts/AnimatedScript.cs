@@ -7,6 +7,8 @@ public class AnimatedScript : MonoBehaviour
 {
     public Sprite[] sprites;
     [SerializeField] private SpriteRenderer spriteRenderer;
+    public bool useDefualtGameSpeed = false;
+    public const float defualtGameSpeed = 5f;
     private int frame = 0;
     private float nextCallTime = 0f;
     private float interval = 0f;
@@ -18,6 +20,7 @@ public class AnimatedScript : MonoBehaviour
      }
      public void Update()
      {
+         if (!useDefualtGameSpeed && GameManager.Instance.IsGameOver && frame == sprites.Length - 1) return;
          if(render && Time.time >= nextCallTime)
          {
              ++frame;
@@ -29,7 +32,15 @@ public class AnimatedScript : MonoBehaviour
              {
                  spriteRenderer.sprite = sprites[frame];
              }
-             nextCallTime = Time.time + (1f / GameManager.Instance.gameSpeed);
+
+             if (useDefualtGameSpeed)
+             {
+                 nextCallTime = Time.time + (1f / defualtGameSpeed);
+             }
+             else
+             {
+                 nextCallTime = Time.time + (1f / GameManager.Instance.gameSpeed);
+             }
          }
          else
          {
